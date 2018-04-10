@@ -1,14 +1,16 @@
-import com.sun.glass.ui.Size;
-
 public class HashTable {
     private TableCells[] table;
     private static int size = 10;
+
+    /*Конструктор*/
 
     HashTable() {
         table = new TableCells[size];
         for (int i = 0; i < size; i++)
             table[i] = null;
     }
+
+    /*Добавление*/
 
     public HashTable put(int key, int value) {
         int HCode = key % size;
@@ -30,10 +32,12 @@ public class HashTable {
             if (table[HCode] != DelTCells.UniqDelCell() && table[HCode] != null
                     && table[HCode].getKey() == key)
                 table[HCode].setValue(value);
-        else
+            else
                 table[HCode] = new TableCells(key, value);
         return null;
     }
+
+    /*Поиск*/
 
     public int get(int key) {
         int HCode = key % size;
@@ -47,11 +51,13 @@ public class HashTable {
         return table[HCode].getValue();
     }
 
+    /*Удаление*/
+
     public HashTable del(int key) {
         int HCode = key % size;
         int StartIndex = -1;
         while (HCode != StartIndex && (table[HCode] == DelTCells.UniqDelCell()
-                || table[HCode] != null && table[HCode].getKey() != key)){
+                || table[HCode] != null && table[HCode].getKey() != key)) {
             if (StartIndex == -1)
                 StartIndex = HCode;
             HCode = (HCode + 1) % size;
@@ -60,6 +66,8 @@ public class HashTable {
             table[HCode] = DelTCells.UniqDelCell();
         return null;
     }
+
+    /*Сравнение*/
 
     public boolean compare(HashTable hashTable) {
         for (int i = 0; i < size; i++) {
